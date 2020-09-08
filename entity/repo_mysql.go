@@ -2,14 +2,14 @@ package book
 
 import (
 	"database/sql"
-	"time"	
+	"time"
 
-	"github.com/google/uuid"	
+	"github.com/google/uuid"
 )
 
 const (
-    layoutISO = "2006-01-02"
-    layoutUS  = "January 2, 2006"
+	layoutISO = "2006-01-02"
+	layoutUS  = "January 2, 2006"
 )
 
 //mysqlRepo mysql repo
@@ -32,7 +32,7 @@ func (r *mysqlRepo) Create(b *Book) (uuid.UUID, error) {
 		return b.ID, err
 	}
 
-	defer stmt.Close()	
+	defer stmt.Close()
 
 	_, err = stmt.Exec(
 		b.ID,
@@ -45,7 +45,7 @@ func (r *mysqlRepo) Create(b *Book) (uuid.UUID, error) {
 	if err != nil {
 		return b.ID, err
 	}
-	
+
 	return b.ID, nil
 }
 
@@ -56,7 +56,7 @@ func (r *mysqlRepo) Get(id uuid.UUID) (*Book, error) {
 		return nil, err
 	}
 	var b Book
-	rows, err := stmt.Query(id)	
+	rows, err := stmt.Query(id)
 	if err != nil {
 		return nil, err
 	}

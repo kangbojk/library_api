@@ -19,14 +19,14 @@ curl -X "POST" "http://localhost:8082/api/books" \
 ```
 curl "http://localhost:8082/api/books?title=big" \
      -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
+     -H 'Accept: application/json'
 ```
 
 ### List books
 ```
 curl "http://localhost:8082/api/books" \
      -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
+     -H 'Accept: application/json'
 ```
 
 ### Update book
@@ -44,9 +44,9 @@ curl -X "PUT" http://localhost:8088/api/books/{id} \
 
 ### Delete book
 ```
-curl -X "DELETE "http://localhost:8082/api/books/{id}" \
+curl -X "DELETE" "http://localhost:8082/api/books/{id}" \
      -H 'Content-Type: application/json' \
-     -H 'Accept: application/json' \
+     -H 'Accept: application/json'
 ```
 
 ## Build Instruction

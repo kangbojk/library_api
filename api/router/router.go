@@ -12,7 +12,7 @@ func NewRouter(repo book.Repository) *mux.Router {
 	m.HandleFunc("/api/books", createBook(repo)).Methods("POST")
 	m.HandleFunc("/api/books/{id}", getBook(repo)).Methods("GET")
 	m.HandleFunc("/api/books/{id}", updateBook(repo)).Methods("PUT")
-	m.HandleFunc("/api/books/{id}", deleteBook(repo)).Methods("DELETE")	
+	m.HandleFunc("/api/books/{id}", deleteBook(repo)).Methods("DELETE")
 
 	return m
 }

@@ -6,15 +6,15 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/mux"
 	"github.com/google/uuid"
+	"github.com/gorilla/mux"
+	"github.com/kangbojk/library_api/api/presenter"
 	"github.com/kangbojk/library_api/entity"
-	"github.com/kangbojk/library_api/api/presenter"	
 )
 
-func listBooks(repo book.Repository)  func(w http.ResponseWriter, r *http.Request) {
-	return  func(w http.ResponseWriter, r *http.Request) {
-		
+func listBooks(repo book.Repository) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+
 		var data []*book.Book
 		var err error
 		title := r.URL.Query().Get("title")
@@ -53,9 +53,9 @@ func listBooks(repo book.Repository)  func(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-func createBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Request) {
-	return  func(w http.ResponseWriter, r *http.Request) {
-		
+func createBook(repo book.Repository) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+
 		var input struct {
 			Title    string `json:"title"`
 			Author   string `json:"author"`
@@ -102,8 +102,8 @@ func createBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-func getBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Request) {
-	return  func(w http.ResponseWriter, r *http.Request) {		
+func getBook(repo book.Repository) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := uuid.Parse(vars["id"])
 		if err != nil {
@@ -137,9 +137,8 @@ func getBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-
-func updateBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Request) {
-	return  func(w http.ResponseWriter, r *http.Request) {		
+func updateBook(repo book.Repository) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := uuid.Parse(vars["id"])
 		if err != nil {
@@ -162,7 +161,6 @@ func updateBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Reque
 			return
 		}
 
-
 		b, err := repo.Get(id)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -173,7 +171,7 @@ func updateBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Reque
 		if input.Title != "" {
 			b.Title = input.Title
 		}
-		
+
 		if input.Author != "" {
 			b.Author = input.Author
 		}
@@ -183,8 +181,8 @@ func updateBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Reque
 		}
 
 		b.Quantity = input.Quantity
-		b.UpdatedAt = time.Now()					
-		
+		b.UpdatedAt = time.Now()
+
 		err = repo.Update(b)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -196,8 +194,8 @@ func updateBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-func deleteBook(repo book.Repository)  func(w http.ResponseWriter, r *http.Request) {
-	return  func(w http.ResponseWriter, r *http.Request) {		
+func deleteBook(repo book.Repository) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := uuid.Parse(vars["id"])
 		if err != nil {
